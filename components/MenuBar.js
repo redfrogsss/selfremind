@@ -24,13 +24,13 @@ const SettingsIcon = (props) => (
 
 export default function MenuBar() {
     return (
-        <Grid templateColumns='repeat(4, 1fr)'>
+        <Grid templateColumns='repeat(5, 1fr)'>
             <GridItem>
                 <Center h="100%" p={4}>
                     <Text fontSize='xl' as='b'>SelfRemind</Text>
                 </Center>
             </GridItem>
-            <GridItem colSpan="2">
+            <GridItem colSpan="3">
                 <Center p={4}>
                     <SearchBar />
                 </Center>
@@ -56,7 +56,7 @@ export default function MenuBar() {
                     </HStack>
                 </Center>
             </GridItem>
-            <GridItem colSpan="4">
+            <GridItem colSpan="5">
                 <Divider width="100%"></Divider>
             </GridItem>
         </Grid>
