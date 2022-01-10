@@ -1,4 +1,5 @@
 import { Button, Divider, Stack, Text } from "@chakra-ui/react";
+import { AddIcon } from '@chakra-ui/icons'
 
 const ActiveButton = (props) => {
     return (
@@ -9,6 +10,18 @@ const ActiveButton = (props) => {
 const InactiveButton = (props) => {
     return (
         <Button variant="outline"><Text color="gray.500">{props.children}</Text></Button>
+    );
+}
+
+const AddFolderButton = (props) => {
+    return (
+        <Button
+            colorScheme='teal'
+            variant='ghost'
+            leftIcon={<AddIcon color="gray.500" />}
+        >
+            <Text color="gray.500">Add Folder</Text>
+        </Button>
     );
 }
 
@@ -23,6 +36,7 @@ export default function FoldersPanel() {
             <InactiveButton>Folder 2</InactiveButton>
             <InactiveButton>Folder 3</InactiveButton>
             <InactiveButton>Folder 4</InactiveButton>
+            <AddFolderButton />
         </Stack>
     );
 } 

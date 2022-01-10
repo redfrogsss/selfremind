@@ -1,11 +1,10 @@
-import MenuBar from "../components/MenuBar";
+import MenuBar from "../../components/MenuBar";
 import { Flex, Grid, GridItem, Spacer, Stack, Text } from '@chakra-ui/react'
-import FoldersPanel from "../components/FoldersPanel";
-import AddItemButton from "../components/AddItemButton";
-import TodoListTable from "../components/TodoListTable";
+import FoldersPanel from "../../components/FoldersPanel";
+import AddItemButton from "../../components/AddItemButton";
+import TodoListTable from "../../components/TodoListTable";
 
-
-export default function Home() {
+export default function AddItem() {
     return (
         <Grid templateColumns='repeat(5, 1fr)'>
             <GridItem colSpan={5}>
