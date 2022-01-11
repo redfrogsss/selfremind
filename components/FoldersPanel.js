@@ -1,5 +1,24 @@
 import { Button, Divider, Stack, Text } from "@chakra-ui/react";
 import { AddIcon } from '@chakra-ui/icons'
+import { useDisclosure } from '@chakra-ui/react'
+import {
+    Modal,
+    ModalOverlay,
+    ModalContent,
+    ModalHeader,
+    ModalFooter,
+    ModalBody,
+    ModalCloseButton,
+} from '@chakra-ui/react'
+import {
+    FormControl,
+    FormLabel,
+    FormErrorMessage,
+    FormHelperText,
+} from '@chakra-ui/react'
+import { Input } from '@chakra-ui/react'
+import { useToast } from '@chakra-ui/react'
+
 
 const ActiveButton = (props) => {
     return (
@@ -14,14 +33,50 @@ const InactiveButton = (props) => {
 }
 
 const AddFolderButton = (props) => {
+
+    const { isOpen, onOpen, onClose } = useDisclosure()
+
+    const toast = useToast();
+
+    const SuccessToast = () =>
+        toast({
+            description: 'Folder created successfully.',
+            status: 'success',
+            duration: 9000,
+            isClosable: true,
+        });
+
     return (
-        <Button
-            colorScheme='teal'
-            variant='ghost'
-            leftIcon={<AddIcon color="gray.500" />}
-        >
-            <Text color="gray.500">Add Folder</Text>
-        </Button>
+        <>
+            <Button
+                colorScheme='teal'
+                variant='ghost'
+                leftIcon={<AddIcon color="gray.500" />}
+                onClick={onOpen}
+            >
+                <Text color="gray.500">Add Folder</Text>
+            </Button>
+            <Modal isOpen={isOpen} onClose={onClose}>
+                <ModalOverlay />
+                <ModalContent>
+                    <ModalHeader>Add Folder</ModalHeader>
+                    <ModalCloseButton />
+                    <ModalBody>
+                        <FormControl>
+                            <FormLabel htmlFor='text'>Name</FormLabel>
+                            <Input id='Name' type='text' />
+                        </FormControl>
+                    </ModalBody>
+
+                    <ModalFooter>
+                        <Button colorScheme='teal' mr={3} onClick={() => { onClose(); SuccessToast(); }} >Add Item</Button>
+                        <Button colorScheme='teal' variant='ghost' onClick={onClose}>
+                            Cancel
+                        </Button>
+                    </ModalFooter>
+                </ModalContent>
+            </Modal>
+        </>
     );
 }
 

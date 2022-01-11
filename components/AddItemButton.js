@@ -97,7 +97,7 @@ export default function AddItemButton() {
                     </ModalBody>
 
                     <ModalFooter>
-                        <Button colorScheme='teal' mr={3} onClick={()=>{onClose();SuccessToast();}} >Add Item</Button>
+                        <Button colorScheme='teal' mr={3} onClick={() => { onClose(); SuccessToast(); }} >Add Item</Button>
                         <Button colorScheme='teal' variant='ghost' onClick={onClose}>
                             Cancel
                         </Button>
