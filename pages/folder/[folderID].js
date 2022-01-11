@@ -4,13 +4,11 @@ import MenuBar from "../../components/MenuBar";
 import FoldersPanel from "../../components/FoldersPanel";
 import AddItemButton from "../../components/AddItemButton";
 import TodoListTable from "../../components/TodoListTable";
-import { IconButton } from '@chakra-ui/react'
-import { DeleteIcon } from '@chakra-ui/icons'
+import RemoveFolderButton from "../../components/RemoveFolderButton";
 
 const Folder = () => {
     const router = useRouter();
     const { folderID } = router.query;  //url variable
-
 
     return (
         <Grid templateColumns='repeat(5, 1fr)'>
@@ -26,7 +24,7 @@ const Folder = () => {
                         <Text>
                             <Text as="b" fontSize="xl">
                                 Folder: {folderID}
-                            <IconButton aria-label='Delete Folder' icon={<DeleteIcon />} ml={3}/>
+                            <RemoveFolderButton />
                             </Text>
                         </Text>
                         <Spacer />
