@@ -18,10 +18,21 @@ import { Input } from '@chakra-ui/react'
 import { Textarea } from '@chakra-ui/react'
 import DateTimePicker from "./DateTimePicker";
 import { Select } from '@chakra-ui/react'
+import { useToast } from '@chakra-ui/react'
 
 export default function AddItemButton() {
 
     const { isOpen, onOpen, onClose } = useDisclosure()
+
+    const toast = useToast();
+
+    const SuccessToast = () =>
+        toast({
+            description: 'Item created successfully.',
+            status: 'success',
+            duration: 9000,
+            isClosable: true,
+        });
 
     return (
         <>
@@ -86,7 +97,7 @@ export default function AddItemButton() {
                     </ModalBody>
 
                     <ModalFooter>
-                        <Button colorScheme='teal' mr={3} onClick={onClose}>Add Item</Button>
+                        <Button colorScheme='teal' mr={3} onClick={()=>{onClose();SuccessToast();}} >Add Item</Button>
                         <Button colorScheme='teal' variant='ghost' onClick={onClose}>
                             Cancel
                         </Button>
