@@ -4,3 +4,12 @@ services:
     build: .
     ports:
       - "3000:3000"
+    restart: unless-stopped
+  db:
+    image: mysql/mysql-server:8.0
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+      MYSQL_DATABASE: selfremind
+      MYSQL_USER: selfremind
+      MYSQL_PASSWORD: selfremind123
