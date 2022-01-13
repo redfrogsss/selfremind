@@ -1,17 +1,33 @@
-import { Button, FormControl, FormLabel, Input, Stack} from "@chakra-ui/react";
+import { Button, FormControl, FormLabel, Input, Stack } from "@chakra-ui/react";
 
 export default function LoginForm() {
+
+    const submitHandler = (e) => {
+        e.preventDefault();
+
+        var attempt = {
+            username: e.target.username.value,
+            password: e.target.password.value
+        }
+
+        console.log(attempt);
+    }
+
     return (
-        <FormControl>
+        <form onSubmit={submitHandler}>
             <Stack>
-                <FormLabel htmlFor="usernmae">Username</FormLabel>
-                <Input id="username" type="text" placeholder="Username"></Input>
-                <FormLabel htmlFor="password">Password</FormLabel>
-                <Input id="password" type="password" placeholder="Password"></Input>
+                <FormControl>
+                    <FormLabel htmlFor='username'>Username</FormLabel>
+                    <Input id='username' type='username' />
+                </FormControl>
+                <FormControl>
+                    <FormLabel htmlFor='password'>Password</FormLabel>
+                    <Input id='password' type='password' />
+                </FormControl>
                 <Button type="submit" mt={4} colorScheme="teal">
                     Login
                 </Button>
             </Stack>
-        </FormControl>
+        </form>
     );
 }
