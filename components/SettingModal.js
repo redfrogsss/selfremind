@@ -23,7 +23,22 @@ const SettingsIcon = (props) => (
 
 export default function SettingModal(props) {
 
-    const { isOpen, onOpen, onClose } = useDisclosure()
+    const { isOpen, onOpen, onClose } = useDisclosure();
+
+    const submitHandler = (e) => {
+        e.preventDefault();
+
+        var formInfo = {
+            newUsername: e.target.newusername.value,
+            oldPassword: e.target.oldpassword.value,
+            newPassword: e.target.newpassword.value,
+            repeatNewPassword: e.target.repeatnewpassword.value,
+        }
+
+        console.log(formInfo);
+
+        onClose();
+    }
 
     return (
         <>
@@ -38,14 +53,14 @@ export default function SettingModal(props) {
             <Modal isOpen={isOpen} onClose={onClose} size="lg">
                 <ModalOverlay />
                 <ModalContent>
-                    <ModalHeader>Settings</ModalHeader>
-                    <ModalCloseButton />
-                    <ModalBody>
-                        <form>
+                    <form onSubmit={submitHandler}>
+                        <ModalHeader>Settings</ModalHeader>
+                        <ModalCloseButton />
+                        <ModalBody>
                             <b>Update Username</b>
                             <FormControl>
-                                <FormLabel htmlFor='username'>Username</FormLabel>
-                                <Input id='username' type='text' />
+                                <FormLabel htmlFor='newusername'>New Username</FormLabel>
+                                <Input id='newusername' type='text' />
                             </FormControl>
                             <Divider h={3} />
                             <b>Update Password</b>
@@ -61,15 +76,15 @@ export default function SettingModal(props) {
                                 <FormLabel htmlFor='repeatnewpassword'>Repeat New Password</FormLabel>
                                 <Input id='repeatnewpassword' type='password' />
                             </FormControl>
-                        </form>
-                    </ModalBody>
+                        </ModalBody>
 
-                    <ModalFooter>
-                        <Button variant='ghost' mr={3} onClick={onClose}>Cancel</Button>
-                        <Button colorScheme='blue' onClick={onClose}>
-                            Update
-                        </Button>
-                    </ModalFooter>
+                        <ModalFooter>
+                            <Button variant='ghost' mr={3} onClick={onClose}>Cancel</Button>
+                            <Button colorScheme='blue' type="submit">
+                                Update
+                            </Button>
+                        </ModalFooter>
+                    </form>
                 </ModalContent>
             </Modal>
         </>
