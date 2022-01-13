@@ -1,6 +1,8 @@
 import { Button, FormControl, FormLabel, Input, Stack } from "@chakra-ui/react";
+import { useRouter } from 'next/router'
 
 export default function LoginForm() {
+    const router = useRouter();
 
     const submitHandler = (e) => {
         e.preventDefault();
@@ -11,6 +13,10 @@ export default function LoginForm() {
         }
 
         console.log(attempt);
+
+        // temp
+        const href = "/home";
+        router.push(href);
     }
 
     return (
@@ -18,11 +24,11 @@ export default function LoginForm() {
             <Stack>
                 <FormControl>
                     <FormLabel htmlFor='username'>Username</FormLabel>
-                    <Input id='username' type='username' />
+                    <Input id='username' type='username' required/>
                 </FormControl>
                 <FormControl>
                     <FormLabel htmlFor='password'>Password</FormLabel>
-                    <Input id='password' type='password' />
+                    <Input id='password' type='password' required/>
                 </FormControl>
                 <Button type="submit" mt={4} colorScheme="teal">
                     Login
