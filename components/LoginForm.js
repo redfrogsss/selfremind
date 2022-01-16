@@ -30,7 +30,7 @@ export default function LoginForm() {
                     <FormLabel htmlFor='password'>Password</FormLabel>
                     <Input id='password' type='password' required/>
                 </FormControl>
-                <Button type="submit" mt={4} colorScheme="teal">
+                <Button type="submit" mt={4} colorScheme="teal" onSubmit={submitHandler}>
                     Login
                 </Button>
             </Stack>

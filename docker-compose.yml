@@ -5,6 +5,8 @@ services:
     ports:
       - "3000:3000"
     restart: unless-stopped
+    volumes:
+      - ./:/home/app
   db:
     image: mysql/mysql-server:8.0
     restart: unless-stopped
