@@ -10,6 +10,7 @@ services:
   db:
     image: mysql/mysql-server:8.0
     restart: unless-stopped
+    command: --default-authentication-plugin=mysql_native_password
     environment:
       MYSQL_ROOT_PASSWORD: example
       MYSQL_DATABASE: selfremind
