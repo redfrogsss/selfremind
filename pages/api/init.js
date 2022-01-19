@@ -1,8 +1,12 @@
 import config from '../../config/mysql';
 var mysql = require('mysql');
+const fs = require('fs')
 
 export default function handler(req, res) {
-    const statements = "SHOW TABLES";
+    var statements = "";
+    statements += "DROP TABLE auth;";
+    statements += "CREATE TABLE auth (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, username VARCHAR(20), pwd VARCHAR(255));";
+    statements += "INSERT INTO auth (username, pwd) VALUES ('admin', 'admin');";
 
     var con = mysql.createConnection(config);
 
