@@ -12,7 +12,7 @@ export default function handler(req, res) {
         };
         con.query(statements, function (err, result) {
             if (err) { res.status(200).json({ err: err }); };
-            res.status(200).json({ result: result })
+            res.status(200).json({ result: result, req: req.query })
         });
     });
 }
