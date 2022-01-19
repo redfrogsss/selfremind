@@ -1,22 +1,37 @@
 import { Button, FormControl, FormLabel, Input, Stack } from "@chakra-ui/react";
 import { useRouter } from 'next/router'
+import { useToast } from '@chakra-ui/react'
+const axios = require('axios');
 
 export default function LoginForm() {
+    const toast = useToast();
     const router = useRouter();
+
+    const FailToast = () =>
+        toast({
+            description: "Username / Password Invalid.",
+            status: 'error',
+            duration: 9000,
+            isClosable: true,
+        })
 
     const submitHandler = (e) => {
         e.preventDefault();
 
-        var attempt = {
+        const attempt = {
             username: e.target.username.value,
-            password: e.target.password.value
+            pwd: e.target.password.value
         }
 
-        console.log(attempt);
-
-        // temp
-        const href = "/home";
-        router.push(href);
+        axios.post("/api/login", attempt).then((res) => {
+            console.log(res.data);
+            if (res.data.authStatus === true) {
+                const href = "/home";
+                router.push(href);
+            } else {
+                FailToast();
+            }
+        }).catch();
     }
 
     return (
@@ -24,11 +39,11 @@ export default function LoginForm() {
             <Stack>
                 <FormControl>
                     <FormLabel htmlFor='username'>Username</FormLabel>
-                    <Input id='username' type='username' required/>
+                    <Input id='username' type='username' required />
                 </FormControl>
                 <FormControl>
                     <FormLabel htmlFor='password'>Password</FormLabel>
-                    <Input id='password' type='password' required/>
+                    <Input id='password' type='password' required />
                 </FormControl>
                 <Button type="submit" mt={4} colorScheme="teal" onSubmit={submitHandler}>
                     Login

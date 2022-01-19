@@ -3,24 +3,8 @@ import "../styles/theme";
 import theme from "../styles/theme";
 import "../components/LoginForm"
 import LoginForm from "../components/LoginForm";
-import { useToast } from '@chakra-ui/react'
-import { useEffect } from "react";
 
 export default function Login() {
-
-    const toast = useToast();
-    const FailToast = () =>
-        toast({
-            description: "Username / Password Invalid.",
-            status: 'error',
-            duration: 9000,
-            isClosable: true,
-        })
-
-    //  run at init 
-    useEffect(()=>{
-        // FailToast();    //  test 
-    }, []);
 
     return (
         <div style={{
