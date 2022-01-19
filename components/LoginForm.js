@@ -24,7 +24,6 @@ export default function LoginForm() {
         }
 
         axios.post("/api/login", attempt).then((res) => {
-            console.log(res.data);
             if (res.data.authStatus === true) {
                 const href = "/home";
                 router.push(href);
