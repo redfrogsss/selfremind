@@ -3,33 +3,40 @@ var mysql = require('mysql');
 
 export default function handler(req, res) {
 
+    // Error Handler 
     const errorHandler = (err = null) => {
         res.status(401).json({ err: err });
     }
 
+    // Login Success Handler
     const loginSuccess = () => {
         res.status(200).json({ authStatus: true });
     }
 
-    if (req.method === 'POST') {
+    if (req.method === 'POST') {    // force methods to POST only for secure
         // Process a POST request
-        const username = req.body.username;
+
+        // Get data from POST request
+        const username = req.body.username; 
         const pwd = req.body.pwd;
     
-        if(!username | !pwd){
+        if(!username | !pwd){   // check whether username or pwd is empty
             errorHandler({err: "Empty username / password. "});
         } else {
+            //create SQL statements
             var statements = "SELECT COUNT(*) AS result FROM auth WHERE username=? AND pwd=?;";
             var insert = [username, pwd];
             statements = mysql.format(statements, insert);
         
+            //create MYSQL connection
             var con = mysql.createConnection(config);
         
+            //connect to MYSQL and query statements
             con.connect(function (err) {
-                if (err) { errorHandler(err); };
+                if (err) { errorHandler(err); };    //return error if exists
                 con.query(statements, function (err, result) {
-                    if (err) { errorHandler(err); };
-                    const authResult = (result[0].result === 1);
+                    if (err) { errorHandler(err); };    //return error if exists
+                    const authResult = (result[0].result === 1);    // determine login result
                     if(authResult === true) {
                         loginSuccess();
                     } else {
