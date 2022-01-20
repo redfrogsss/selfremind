@@ -4,7 +4,7 @@ var mysql = require('mysql');
 export default function handler(req, res) {
 
     const errorHandler = (err = null) => {
-        res.status(200).json({ err: err });
+        res.status(401).json({ err: err });
     }
 
     const loginSuccess = () => {
@@ -33,7 +33,7 @@ export default function handler(req, res) {
                     if(authResult === true) {
                         loginSuccess();
                     } else {
-                        if (err) { errorHandler({err: "Invalid username / password."}); };
+                        errorHandler({err: "Invalid username / password."});
                     }
                 });
             });

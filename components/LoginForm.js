@@ -30,7 +30,9 @@ export default function LoginForm() {
             } else {
                 FailToast();
             }
-        }).catch();
+        }).catch((err) => {
+            FailToast();
+        });
     }
 
     return (
