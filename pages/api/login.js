@@ -4,13 +4,13 @@ var mysql = require('mysql');
 export default function handler(req, res) {
 
     // Error Handler 
-    const errorHandler = (err = null) => {  // goes to clients side .catch(err) methods 
-        res.status(401).json({ err: err });
+    const errorHandler = (err = null) => {  
+        res.status(401).json({ err: err });     // goes to clients side .catch(err) methods 
     }
 
     // Login Success Handler
-    const loginSuccess = () => {    // goes to clients side .then(res) methods 
-        res.status(200).json({ authStatus: true });
+    const loginSuccess = () => {    
+        res.status(200).json({ authStatus: true });     // goes to clients side .then(res) methods 
     }
 
     if (req.method === 'POST') {    // force methods to POST only for secure
