@@ -7,6 +7,7 @@ export default function handler(req, res) {
     statements += "DROP TABLE IF EXISTS auth;";
     statements += "CREATE TABLE auth (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, username VARCHAR(20), pwd VARCHAR(255));";
     statements += "INSERT INTO auth (username, pwd) VALUES ('admin', 'admin');";
+    // statements += "CREATE TABLE items (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,);";
 
     var con = mysql.createConnection(config);
 
