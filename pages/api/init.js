@@ -1,23 +1,41 @@
 import config from '../../config/mysql';
 var mysql = require('mysql');
-const fs = require('fs')
+var fs = require('fs');
+var readline = require('readline');
 
-export default function handler(req, res) {
-    var statements = "";
-    statements += "DROP TABLE IF EXISTS auth;";
-    statements += "CREATE TABLE auth (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY, username VARCHAR(20), pwd VARCHAR(255));";
-    statements += "INSERT INTO auth (username, pwd) VALUES ('admin', 'admin');";
-    // statements += "CREATE TABLE items (id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,);";
+const sqlToString = async (path = "") => {  //convert sql file into string
+    return new Promise((resolve) => {
 
-    var con = mysql.createConnection(config);
+        var statements = "";
 
-    con.connect(function (err) {
-        if (err) {
-            res.status(200).json({ err: err });
-        };
-        con.query(statements, function (err, result) {
-            if (err) { res.status(200).json({ err: err }); };
-            res.status(200).json({ result: result })
+        var rl = readline.createInterface({
+            input: fs.createReadStream(path),
+            terminal: false
+        });
+        
+        rl.on('line', function (chunk) {
+            statements += chunk.toString('ascii');
+        });
+
+        rl.on('close', function () {
+            resolve(statements);
         });
     });
+}
+
+export default function handler(req, res) {
+    var con = mysql.createConnection(config);
+
+    sqlToString("./config/init.sql").then((statements)=> {
+        con.connect(function (err) {
+            if (err) {
+                res.status(200).json({ err: err });
+            };
+            con.query(statements, function (err, result) {
+                if (err) { res.status(200).json({ err: err }); };
+                res.status(200).json({ result: result })
+            });
+        });
+    });
+
 }
