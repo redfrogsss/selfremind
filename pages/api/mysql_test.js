@@ -2,7 +2,7 @@ import config from '../../config/mysql';
 var mysql = require('mysql');
 
 export default function handler(req, res) {
-    const statements = "SHOW TABLES";
+    var statements = "SELECT * FROM items;";
 
     var con = mysql.createConnection(config);
 
