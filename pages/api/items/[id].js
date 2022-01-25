@@ -1,10 +1,11 @@
 import config from '../../../config/mysql';
 var mysql = require('mysql');
 
+
 export default function handler(req, res) {
     const { id } = req.query;
-
-    if (req.method === 'POST') {    // Create a new item
+    
+    const createItem = () => {  // Create a new item
         // Items Object Structure
         const items = {
             name: "Test1",
@@ -15,13 +16,13 @@ export default function handler(req, res) {
             folder: "1",    //pending changes after implemented folder
             finished: false,
         }
-
+    
         var statements = "INSERT INTO items (name, description, datetime, reminder, repeats, folder, finished) VALUES (?,?,?,?,?,?,?);";
         var insert = [items.name, items.description, items.datetime, items.reminder, items.repeats, items.folder, items.finished];
         statements = mysql.format(statements, insert);
-
+    
         var con = mysql.createConnection(config);
-
+    
         con.connect(function (err) {
             if (err) {
                 res.status(200).json({ err: err });
@@ -31,13 +32,15 @@ export default function handler(req, res) {
                 res.status(200).json({ result: result, req: req.query })
             });
         });
-    } else if (req.method === 'GET') {  // get info with item id
+    }
+
+    const getItem = () => { // get info with item id
         var statements = "SELECT * FROM items WHERE id=?;";
         var insert = [id];
         statements = mysql.format(statements, insert);
-
+    
         var con = mysql.createConnection(config);
-
+    
         con.connect(function (err) {
             if (err) {
                 res.status(200).json({ err: err });
@@ -47,7 +50,9 @@ export default function handler(req, res) {
                 res.status(200).json({ result: result, req: req.query })
             });
         });
-    } else if (req.method === 'PUT') {  // modify items with id
+    }
+
+    const modifyItem = () => {  // modify items with id
         const items = {
             name: req.body.name,
             description: req.body.description,
@@ -57,7 +62,7 @@ export default function handler(req, res) {
             folder: req.body.folder,
             finished: req.body.finished,
         }
-
+    
         var statements = "";
         if (items.name) {
             statements += "UPDATE items SET name=? WHERE id=?;";
@@ -94,9 +99,9 @@ export default function handler(req, res) {
             var insert = [items.finished, id];
             statements = mysql.format(statements, insert);
         }
-
+    
         var con = mysql.createConnection(config);
-
+    
         con.connect(function (err) {
             if (err) {
                 res.status(200).json({ err: err });
@@ -106,14 +111,15 @@ export default function handler(req, res) {
                 res.status(200).json({ result: result, req: req.query })
             });
         });
+    }
 
-    } else if (req.method === 'DELETE') {   // delete items with id
+    const deleteItem = () => {  // delete items with id
         var statements = "DELETE FROM items WHERE id=?;";
         var insert = [id];
         statements = mysql.format(statements, insert);
-
+    
         var con = mysql.createConnection(config);
-
+    
         con.connect(function (err) {
             if (err) {
                 res.status(200).json({ err: err });
@@ -123,5 +129,16 @@ export default function handler(req, res) {
                 res.status(200).json({ result: result, req: req.query })
             });
         });
+
+    }
+
+    if (req.method === 'POST') {    
+        createItem();
+    } else if (req.method === 'GET') {  
+        getItem();
+    } else if (req.method === 'PUT') {  
+        modifyItem();
+    } else if (req.method === 'DELETE') {   
+        deleteItem();
     }
 }
