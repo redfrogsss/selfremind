@@ -14,6 +14,7 @@ VALUES
 
 CREATE TABLE items (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    userID INT NOT NULL,
     name VARCHAR(255),
     description VARCHAR(500),
     datetime TIMESTAMP,
