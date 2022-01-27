@@ -1,9 +1,12 @@
 import { Button, FormControl, FormLabel, Input, Stack } from "@chakra-ui/react";
 import { useRouter } from 'next/router'
 import { useToast } from '@chakra-ui/react'
+import { useCookies } from 'react-cookie';
+
 const axios = require('axios');
 
 export default function LoginForm() {
+    const [cookies, setCookie, removeCookie] = useCookies(['userID']);
     const toast = useToast();
     const router = useRouter();
 
@@ -25,6 +28,9 @@ export default function LoginForm() {
 
         axios.post("/api/login", attempt).then((res) => {
             if (res.data.authStatus === true) {
+                // console.log("userID", res.data.userID);
+                setCookie("userID", res.data.userID);
+                // console.log("cookie", cookies.userID);
                 const href = "/home";
                 router.push(href);
             } else {

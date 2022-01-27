@@ -3,9 +3,17 @@ import { Flex, Grid, GridItem, Spacer, Stack, Text } from '@chakra-ui/react'
 import FoldersPanel from "../components/FoldersPanel";
 import AddItemButton from "../components/AddItemButton";
 import TodoListTable from "../components/TodoListTable";
-
+import { useCookies } from 'react-cookie';
+import { useEffect } from "react";
 
 export default function Home() {
+
+    const [cookies, setCookie, removeCookie] = useCookies(['userID']);
+
+    useEffect(()=>{
+        // console.log(cookies.userID);
+    }, []);
+
     return (
         <Grid templateColumns='repeat(5, 1fr)'>
             <GridItem colSpan={5}>

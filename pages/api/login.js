@@ -9,8 +9,8 @@ export default function handler(req, res) {
     }
 
     // Login Success Handler
-    const loginSuccess = () => {    
-        res.status(200).json({ authStatus: true });     // goes to clients side .then(res) methods 
+    const loginSuccess = (userID) => {    
+        res.status(200).json({ authStatus: true, userID: userID });     // goes to clients side .then(res) methods 
     }
 
     if (req.method === 'POST') {    // force methods to POST only for secure
@@ -24,7 +24,7 @@ export default function handler(req, res) {
             errorHandler({err: "Empty username / password. "});
         } else {
             //create SQL statements
-            var statements = "SELECT COUNT(*) AS result FROM auth WHERE username=? AND pwd=?;";
+            var statements = "SELECT id AS userID FROM auth WHERE username=? AND pwd=?;";
             var insert = [username, pwd];
             statements = mysql.format(statements, insert);
         
@@ -36,9 +36,9 @@ export default function handler(req, res) {
                 if (err) { errorHandler(err); };    //return error if exists
                 con.query(statements, function (err, result) {
                     if (err) { errorHandler(err); };    //return error if exists
-                    const authResult = (result[0].result === 1);    // determine login result
+                    const authResult = (result.length > 0);    // determine login result
                     if(authResult === true) {
-                        loginSuccess();
+                        loginSuccess(result[0].userID);
                     } else {
                         errorHandler({err: "Invalid username / password."});
                     }
