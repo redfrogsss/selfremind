@@ -133,7 +133,7 @@ export default function handler(req, res) {
     }
 
     if (req.method === 'POST') {    
-        createItem();
+        // createItem();
     } else if (req.method === 'GET') {  
         getItem(id);
     } else if (req.method === 'PUT') {  
