@@ -30,7 +30,21 @@ export default function handler(req, res) {
     }
 
     const getAllItems = () => {
-
+        var statements = "SELECT id FROM items WHERE userID=?;";
+        var insert = [id];
+        statements = mysql.format(statements, insert);
+    
+        var con = mysql.createConnection(config);
+    
+        con.connect(function (err) {
+            if (err) {
+                res.status(200).json({ err: err });
+            };
+            con.query(statements, function (err, result) {
+                if (err) { res.status(200).json({ err: err }); };
+                res.status(200).json({ result: result, req: req.query })
+            });
+        });
     }
 
     if (req.method === 'POST') {
