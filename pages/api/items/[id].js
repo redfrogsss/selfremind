@@ -34,7 +34,7 @@ export default function handler(req, res) {
         });
     }
 
-    const getItem = () => { // get info with item id
+    const getItem = (id) => { // get info with item id
         var statements = "SELECT * FROM items WHERE id=?;";
         var insert = [id];
         statements = mysql.format(statements, insert);
@@ -52,7 +52,7 @@ export default function handler(req, res) {
         });
     }
 
-    const modifyItem = () => {  // modify items with id
+    const modifyItem = (id) => {  // modify items with id
         const items = {
             name: req.body.name,
             description: req.body.description,
@@ -113,7 +113,7 @@ export default function handler(req, res) {
         });
     }
 
-    const deleteItem = () => {  // delete items with id
+    const deleteItem = (id) => {  // delete items with id
         var statements = "DELETE FROM items WHERE id=?;";
         var insert = [id];
         statements = mysql.format(statements, insert);
@@ -135,10 +135,10 @@ export default function handler(req, res) {
     if (req.method === 'POST') {    
         createItem();
     } else if (req.method === 'GET') {  
-        getItem();
+        getItem(id);
     } else if (req.method === 'PUT') {  
-        modifyItem();
+        modifyItem(id);
     } else if (req.method === 'DELETE') {   
-        deleteItem();
+        deleteItem(id);
     }
 }
