@@ -16,3 +16,7 @@ services:
       MYSQL_DATABASE: selfremind
       MYSQL_USER: selfremind
       MYSQL_PASSWORD: selfremind123
+    volumes:
+      - dbdata:/var/lib/mysql
+volumes:
+  dbdata:
