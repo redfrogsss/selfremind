@@ -36,6 +36,7 @@ export default function handler(req, res) {
                 if (err) { errorHandler(err); };    //return error if exists
                 con.query(statements, function (err, result) {
                     if (err) { errorHandler(err); };    //return error if exists
+                    if (!result) {errorHandler("result undefined")} ;   //return error if no result
                     const authResult = (result.length > 0);    // determine login result
                     if(authResult === true) {
                         loginSuccess(result[0].userID);
