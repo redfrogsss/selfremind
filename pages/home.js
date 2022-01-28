@@ -2,10 +2,10 @@ import MenuBar from "../components/MenuBar";
 import { Flex, Grid, GridItem, Spacer, Stack, Text } from '@chakra-ui/react'
 import FoldersPanel from "../components/FoldersPanel";
 import AddItemButton from "../components/AddItemButton";
-import TodoListTable from "../components/TodoListTable";
 import { useCookies } from 'react-cookie';
 import { useEffect } from "react";
 import AuthRedirect from '../components/AuthRedirect';
+import TodayTable from "../components/TodayTable";
 
 export default function Home() {
 
@@ -39,7 +39,7 @@ export default function Home() {
                             <Spacer />
                             <AddItemButton />
                         </Flex>
-                        <TodoListTable />
+                        <TodayTable />
                     </Stack>
                 </GridItem>
             </Grid>

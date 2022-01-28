@@ -38,7 +38,7 @@ const RepeatBadge = (props) => {
     );
 }
 
-export default function TodoListTable() {
+export default function TodoListTable(props) {
     return (
         <Box borderRadius="lg" borderWidth="1px">
             <Table variant='simple'>
