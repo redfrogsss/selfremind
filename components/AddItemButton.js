@@ -48,16 +48,12 @@ export default function AddItemButton() {
             folder: e.target.folder.value
         }
         
-        console.log(data);
-
         onClose();
         SuccessToast();
     }
 
     const datetimeHandler = (value) => {
-        // console.log(value);
         setDatetime(value);
-        console.log(datetime);
     }
 
     return (
