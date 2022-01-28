@@ -4,6 +4,9 @@ import { Center, Divider, Grid, GridItem, Text, Input, InputGroup, InputLeftElem
 import Link from 'next/link';
 import SettingModal from './SettingModal';
 import LogoutButton from './LogoutButton';
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import { useCookies } from 'react-cookie';
 
 const SearchBar = () => {
     return (
@@ -18,6 +21,17 @@ const SearchBar = () => {
 }
 
 export default function MenuBar() {
+
+    const [username, setUsername] = useState("");
+    const [cookies, setCookie, removeCookie] = useCookies(['userID']);
+
+    useEffect(()=>{
+        const url = "/api/user/" + cookies.userID;
+        axios.get(url).then((res) => {
+            setUsername(res.data.result[0].username);
+        });
+    }, []);
+
     return (
         <Grid templateColumns='repeat(5, 1fr)'>
             <GridItem>
@@ -40,7 +54,7 @@ export default function MenuBar() {
                         <SettingModal />
                         <LogoutButton /> 
                         <Text px={4}>
-                            redfrogss
+                            {username}
                         </Text>
                     </HStack>
                 </Center>
