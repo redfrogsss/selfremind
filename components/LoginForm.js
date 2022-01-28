@@ -28,9 +28,9 @@ export default function LoginForm() {
 
         axios.post("/api/login", attempt).then((res) => {
             if (res.data.authStatus === true) {
-                // console.log("userID", res.data.userID);
+                // console.log("userID", res.data.userID);  // test session
                 setCookie("userID", res.data.userID);
-                // console.log("cookie", cookies.userID);
+                // console.log("cookie", cookies.userID);   // test cookies
                 const href = "/home";
                 router.push(href);
             } else {
