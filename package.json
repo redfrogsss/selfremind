@@ -5,7 +5,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "up": "docker-compose up -d",
+    "down": "docker-compose down"
   },
   "dependencies": {
     "@chakra-ui/icons": "^1.1.1",
