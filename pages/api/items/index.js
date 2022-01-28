@@ -47,13 +47,18 @@ export default function handler(req, res) {
         });
     }
 
+    // Error Handler 
+    const errorHandler = (err = undefined) => {
+        res.status(401).json({ err: err });     // goes to clients side .catch(err) methods 
+    }
+
     if (req.method === 'POST') {
         createItem();
     } else if (req.method === 'GET') {
         getAllItems();
     } else if (req.method === 'PUT') {
-        throw new Error("PUT is not allowed.");
+        errorHandler("PUT is not allowed.");
     } else if (req.method === 'DELETE') {
-        throw new Error("PUT is not allowed.");
+        errorHandler("PUT is not allowed.");
     }
 }
