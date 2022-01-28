@@ -59,6 +59,6 @@ export default function handler(req, res) {
     } else if (req.method === 'PUT') {
         errorHandler("PUT is not allowed.");
     } else if (req.method === 'DELETE') {
-        errorHandler("PUT is not allowed.");
+        errorHandler("DELETE is not allowed.");
     }
 }
