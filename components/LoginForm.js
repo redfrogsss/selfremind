@@ -2,6 +2,7 @@ import { Button, FormControl, FormLabel, Input, Stack } from "@chakra-ui/react";
 import { useRouter } from 'next/router'
 import { useToast } from '@chakra-ui/react'
 import { useCookies } from 'react-cookie';
+import { useEffect } from "react";
 
 const axios = require('axios');
 
@@ -40,6 +41,17 @@ export default function LoginForm() {
             FailToast();
         });
     }
+
+    useEffect(() => {
+        if (!cookies.userID) { console.log("no cookies"); } else {
+            axios.post("/api/authStatus", { userID: cookies.userID }).then((res) => {
+                if (res.data.authStatus) {
+                    const href = "/home";
+                    router.push(href);
+                }
+            });
+        }
+    }, []);
 
     return (
         <form onSubmit={submitHandler}>
