@@ -1,14 +1,18 @@
-import React, { useState, forwardRef } from "react";
+import React, { useState, forwardRef, useEffect } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { Input } from '@chakra-ui/react'
 import moment from 'moment'
 
-export default function DateTimePicker() {
+export default function DateTimePicker(props) {
     const [startDate, setStartDate] = useState(new Date());
     const ChakraUIInput = forwardRef(({ value, onClick }, ref) => (
         <Input value={value} onClick={onClick} ref={ref} />
     ));
+
+    useEffect(()=>{
+        props.changeHandler(startDate);
+    }, [startDate]);
 
     return (
         <DatePicker

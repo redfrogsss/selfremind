@@ -19,12 +19,14 @@ import { Textarea } from '@chakra-ui/react'
 import DateTimePicker from "./DateTimePicker";
 import { Select } from '@chakra-ui/react'
 import { useToast } from '@chakra-ui/react'
+import { useState } from "react";
 
 export default function AddItemButton() {
 
     const { isOpen, onOpen, onClose } = useDisclosure()
 
     const toast = useToast();
+    const [datetime, setDatetime] = useState(new Date());
 
     const SuccessToast = () =>
         toast({
@@ -40,7 +42,7 @@ export default function AddItemButton() {
         var data = {
             name: e.target.name.value,
             description: e.target.description.value,
-            datetime: undefined,
+            datetime: datetime,
             reminder: e.target.reminder.value,
             repeat: e.target.repeat.value,
             folder: e.target.folder.value
@@ -52,6 +54,11 @@ export default function AddItemButton() {
         SuccessToast();
     }
 
+    const datetimeHandler = (value) => {
+        // console.log(value);
+        setDatetime(value);
+        console.log(datetime);
+    }
 
     return (
         <>
@@ -82,7 +89,7 @@ export default function AddItemButton() {
                                 </FormControl>
                                 <FormControl isRequired>
                                     <FormLabel htmlFor='datetime'>Date & Time</FormLabel>
-                                    <DateTimePicker />
+                                    <DateTimePicker changeHandler={datetimeHandler} />
                                 </FormControl>
                                 <FormControl>
                                     <FormLabel htmlFor='reminder'>Reminder</FormLabel>
