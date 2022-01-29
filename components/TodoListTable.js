@@ -46,6 +46,7 @@ export default function TodoListTable(props) {
     const printItems = (data = []) => {
 
         return data.map((value) => {
+            // console.log(value);
 
             const [checked, setChecked] = useState(value.finished); // show checked state
 
@@ -69,6 +70,14 @@ export default function TodoListTable(props) {
                 }
             }
 
+            const getRepeatBadge = (repeats = "none") => {
+                if (repeats === "none") {
+                    return <></>
+                } else {
+                    return <RepeatBadge>{repeats}</RepeatBadge>
+                }
+            }
+
             return (
                 <Tr>
                     <Td>
@@ -81,6 +90,7 @@ export default function TodoListTable(props) {
 
                     </Td>
                     <Td isNumeric>
+                        {getRepeatBadge(value.repeats)}
                         {getDateBadge(value.datetime)}
                         {moment(value.datetime).format('h:mm A')}
                     </Td>
