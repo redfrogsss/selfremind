@@ -81,7 +81,6 @@ export default function TodoListTable(props) {
 
                     </Td>
                     <Td isNumeric>
-                        {/* <DateBadge>{getDate(value.datetime)}</DateBadge> */}
                         {getDateBadge(value.datetime)}
                         {moment(value.datetime).format('h:mm A')}
                     </Td>
