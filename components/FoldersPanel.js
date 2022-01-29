@@ -25,7 +25,7 @@ import { useCookies } from 'react-cookie';
 
 const ActiveButton = (props) => {
     return (
-        <Button colorScheme="teal">{props.children}</Button>
+        <Button colorScheme="teal" onClick={props.onClick}>{props.children}</Button>
     );
 }
 
@@ -107,9 +107,9 @@ export default function FoldersPanel() {
 
     return (
         <Stack w="100%" p={10}>
-            <ActiveButton>Today</ActiveButton>
-            <InactiveButton onClick={()=>{ router.push("/done") }}>Done</InactiveButton>
-            <InactiveButton>All Todos</InactiveButton>
+            <ActiveButton onClick={() => { router.push("/home") }}>Today</ActiveButton>
+            <InactiveButton onClick={() => { router.push("/done") }}>Done</InactiveButton>
+            <InactiveButton onClick={() => { router.push("/all") }}>All Todos</InactiveButton>
             <Divider w="100%" h={1} py={1} />
             {/* temp route */}
             {/* <InactiveButton onClick={() => { router.push("/folder/Folder1") }}>Folder 1</InactiveButton>
