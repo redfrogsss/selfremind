@@ -38,6 +38,8 @@ const InactiveButton = (props) => {
 const AddFolderButton = (props) => {
 
     const { isOpen, onOpen, onClose } = useDisclosure()
+    const [cookies, setCookie, removeCookie] = useCookies(['userID']);
+    const router = useRouter();
 
     const toast = useToast();
 
@@ -48,6 +50,27 @@ const AddFolderButton = (props) => {
             duration: 9000,
             isClosable: true,
         });
+
+    const submitHandler = (e) => {
+        e.preventDefault();
+
+        var data = {
+            userID: cookies.userID,
+            name: e.target.name.value,
+        }
+
+        axios.post("/api/folders", data)
+            .then((res)=>{
+                console.log(res.data);
+                router.reload();
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+
+        onClose();
+        SuccessToast();
+    }
 
     return (
         <>
@@ -60,24 +83,26 @@ const AddFolderButton = (props) => {
                 <Text color="gray.500">Add Folder</Text>
             </Button>
             <Modal isOpen={isOpen} onClose={onClose}>
-                <ModalOverlay />
-                <ModalContent>
-                    <ModalHeader>Add Folder</ModalHeader>
-                    <ModalCloseButton />
-                    <ModalBody>
-                        <FormControl>
-                            <FormLabel htmlFor='text'>Name</FormLabel>
-                            <Input id='Name' type='text' />
-                        </FormControl>
-                    </ModalBody>
+                <form onSubmit={(e) => { submitHandler(e); }}>
+                    <ModalOverlay />
+                    <ModalContent>
+                        <ModalHeader>Add Folder</ModalHeader>
+                        <ModalCloseButton />
+                        <ModalBody>
+                            <FormControl>
+                                <FormLabel htmlFor='text'>Name</FormLabel>
+                                <Input id='name' type='text' />
+                            </FormControl>
+                        </ModalBody>
 
-                    <ModalFooter>
-                        <Button colorScheme='teal' mr={3} onClick={() => { onClose(); SuccessToast(); }} >Add Item</Button>
-                        <Button colorScheme='teal' variant='ghost' onClick={onClose}>
-                            Cancel
-                        </Button>
-                    </ModalFooter>
-                </ModalContent>
+                        <ModalFooter>
+                            <Button colorScheme='teal' mr={3} type="submit" >Add Item</Button>
+                            <Button colorScheme='teal' variant='ghost' onClick={onClose}>
+                                Cancel
+                            </Button>
+                        </ModalFooter>
+                    </ModalContent>
+                </form>
             </Modal>
         </>
     );
