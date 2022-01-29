@@ -96,8 +96,8 @@ export default function TodoListTable(props) {
 
                     </Td>
                     <Td isNumeric>
-                        {getRepeatBadge(value.repeats)}
                         {getOverDueBadge(value.datetime)}
+                        {getRepeatBadge(value.repeats)}
                         {getDateBadge(value.datetime)}
                         {moment(value.datetime).format('h:mm A')}
                     </Td>
