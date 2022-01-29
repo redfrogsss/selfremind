@@ -116,7 +116,7 @@ export default function TodoListTable(props) {
                     </Tr>
                 </Thead>
                 <Tbody>
-                    <Tr>
+                    {/* <Tr>
                         <Td><Checkbox>Item 1</Checkbox></Td>
                         <Td isNumeric>
                             <OverDueBadge />
@@ -146,7 +146,7 @@ export default function TodoListTable(props) {
                             <DateBadge>Today</DateBadge>
                             11:30AM
                         </Td>
-                    </Tr>
+                    </Tr> */}
                     {printItems(props.data)}
                 </Tbody>
             </Table>
