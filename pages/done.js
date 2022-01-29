@@ -9,6 +9,7 @@ import AuthRedirect from '../components/AuthRedirect';
 import { useEffect, useState } from 'react';
 import { useCookies } from 'react-cookie';
 import FolderTable from '../components/FolderTable';
+import DoneTable from '../components/DoneTable';
 
 const Done = () => {
     const router = useRouter();
@@ -35,7 +36,7 @@ const Done = () => {
                             <Spacer />
                             <AddItemButton />
                         </Flex>
-                        <TodoListTable />
+                        <DoneTable />
                     </Stack>
                 </GridItem>
             </Grid>
