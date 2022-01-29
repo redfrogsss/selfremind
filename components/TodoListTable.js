@@ -73,8 +73,9 @@ export default function TodoListTable(props) {
                             onChange={(e) => { checkHandler(value.id, e.target.checked); }}
                             isChecked={checked}
                         >
-                            {value.name}
+                            <Text onClick={(e)=>{e.preventDefault()}}>{value.name}</Text>
                         </Checkbox>
+                        
                     </Td>
                     <Td isNumeric>
                         <DateBadge>{getDate(value.datetime)}</DateBadge>
