@@ -56,13 +56,16 @@ export default function TodoListTable(props) {
                     });
             }
 
-            const getDate = (date) => {
+            const getDateBadge = (date) => {
                 var targetDate = moment(date).format('DD MMM');
                 var today = moment().format('DD MMM');
-                if (targetDate.toString() === today.toString()) {
-                    return "TODAY";
+                // console.log("targetDate is in the past?", moment().diff(date, 'days') > 0);    // targetdate is in the past?
+                if (moment().diff(date, 'days') > 0) {   // targetdate is in the past?
+                    return <OverDueDateBadge>{targetDate}</OverDueDateBadge>
+                } else if (targetDate.toString() === today.toString()) {
+                    return <DateBadge>TODAY</DateBadge>;
                 } else {
-                    return targetDate;
+                    return <DateBadge>{targetDate}</DateBadge>;
                 }
             }
 
@@ -73,12 +76,13 @@ export default function TodoListTable(props) {
                             onChange={(e) => { checkHandler(value.id, e.target.checked); }}
                             isChecked={checked}
                         >
-                            <Text onClick={(e)=>{e.preventDefault()}}>{value.name}</Text>
+                            <Text onClick={(e) => { e.preventDefault() }}>{value.name}</Text>
                         </Checkbox>
-                        
+
                     </Td>
                     <Td isNumeric>
-                        <DateBadge>{getDate(value.datetime)}</DateBadge>
+                        {/* <DateBadge>{getDate(value.datetime)}</DateBadge> */}
+                        {getDateBadge(value.datetime)}
                         {moment(value.datetime).format('h:mm A')}
                     </Td>
                 </Tr>
