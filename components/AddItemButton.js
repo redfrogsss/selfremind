@@ -19,17 +19,31 @@ import { Textarea } from '@chakra-ui/react'
 import DateTimePicker from "./DateTimePicker";
 import { Select } from '@chakra-ui/react'
 import { useToast } from '@chakra-ui/react'
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { useCookies } from 'react-cookie';
 import moment from 'moment'
+import { useRouter } from 'next/router'
 
 export default function AddItemButton() {
+    const router = useRouter()
 
     const [cookies, setCookie, removeCookie] = useCookies(['userID']);
     const { isOpen, onOpen, onClose } = useDisclosure()
     const [datetime, setDatetime] = useState(new Date());
     const toast = useToast();
+    const [folderData, setFolderData] = useState([]);
+
+    // fetch folder data
+    useEffect(() => {
+        axios.get("/api/folders?userID=" + cookies.userID)
+            .then((res) => {
+                setFolderData(res.data.result);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }, []);
 
     const SuccessToast = () =>
         toast({
@@ -41,7 +55,7 @@ export default function AddItemButton() {
 
     const submitHandler = (e) => {
         e.preventDefault();
-        
+
         var data = {
             userID: cookies.userID,
             name: e.target.name.value,
@@ -53,18 +67,23 @@ export default function AddItemButton() {
         }
 
         console.log(data);
-        axios.post("/api/items", data).then((res)=>{
-            console.log(res.data);
+        axios.post("/api/items", data).then((res) => {
+            onClose();
+            SuccessToast();
+            router.push("/folder/" + data.folder);
         }).catch((err) => {
             console.error(err);
         });
-        
-        onClose();
-        SuccessToast();
     }
 
     const datetimeHandler = (value) => {
         setDatetime(moment(value));
+    }
+
+    const printFolderOptions = () => {
+        return folderData.map((value) => {
+            return <option value={value.id}>{value.name}</option>
+        });
     }
 
     return (
@@ -121,10 +140,7 @@ export default function AddItemButton() {
                                 <FormControl>
                                     <FormLabel htmlFor='folder'>Folder</FormLabel>
                                     <Select id='folder'>
-                                        <option value='1' defaultChecked>Folder 1</option>
-                                        <option value='2'>Folder 2</option>
-                                        <option value='3'>Folder 3</option>
-                                        <option value='4'>Folder 4</option>
+                                        {printFolderOptions()}
                                     </Select>
                                 </FormControl>
                             </Stack>
