@@ -1,7 +1,6 @@
 import config from '../../../config/mysql';
 var mysql = require('mysql');
 
-
 export default function handler(req, res) {
     const { id } = req.query;
     
