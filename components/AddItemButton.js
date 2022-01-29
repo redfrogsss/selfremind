@@ -20,13 +20,16 @@ import DateTimePicker from "./DateTimePicker";
 import { Select } from '@chakra-ui/react'
 import { useToast } from '@chakra-ui/react'
 import { useState } from "react";
+import axios from "axios";
+import { useCookies } from 'react-cookie';
+import moment from 'moment'
 
 export default function AddItemButton() {
 
+    const [cookies, setCookie, removeCookie] = useCookies(['userID']);
     const { isOpen, onOpen, onClose } = useDisclosure()
-
-    const toast = useToast();
     const [datetime, setDatetime] = useState(new Date());
+    const toast = useToast();
 
     const SuccessToast = () =>
         toast({
@@ -40,6 +43,7 @@ export default function AddItemButton() {
         e.preventDefault();
         
         var data = {
+            userID: cookies.userID,
             name: e.target.name.value,
             description: e.target.description.value,
             datetime: datetime,
@@ -47,13 +51,20 @@ export default function AddItemButton() {
             repeat: e.target.repeat.value,
             folder: e.target.folder.value
         }
+
+        console.log(data);
+        axios.post("/api/items", data).then((res)=>{
+            console.log(res.data);
+        }).catch((err) => {
+            console.error(err);
+        });
         
         onClose();
         SuccessToast();
     }
 
     const datetimeHandler = (value) => {
-        setDatetime(value);
+        setDatetime(moment(value).format('YYYY-MM-DD HH:mm:ss'));
     }
 
     return (
@@ -90,7 +101,7 @@ export default function AddItemButton() {
                                 <FormControl>
                                     <FormLabel htmlFor='reminder'>Reminder</FormLabel>
                                     <Select id='reminder'>
-                                        <option value='none' defaultChecked>No Reminder</option>
+                                        <option value='0' defaultChecked>No Reminder</option>
                                         <option value='5'>5 minutes before</option>
                                         <option value='10'>10 minutes before</option>
                                         <option value='15'>15 minutes before</option>
@@ -110,10 +121,10 @@ export default function AddItemButton() {
                                 <FormControl>
                                     <FormLabel htmlFor='folder'>Folder</FormLabel>
                                     <Select id='folder'>
-                                        <option value='folder1' defaultChecked>Folder 1</option>
-                                        <option value='folder2'>Folder 2</option>
-                                        <option value='folder3'>Folder 3</option>
-                                        <option value='folder4'>Folder 4</option>
+                                        <option value='1' defaultChecked>Folder 1</option>
+                                        <option value='2'>Folder 2</option>
+                                        <option value='3'>Folder 3</option>
+                                        <option value='4'>Folder 4</option>
                                     </Select>
                                 </FormControl>
                             </Stack>

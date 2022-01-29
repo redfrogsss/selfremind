@@ -12,6 +12,7 @@ export default function DateTimePicker(props) {
 
     useEffect(()=>{
         props.changeHandler(startDate);
+        // console.log(moment(startDate));
     }, [startDate]);
 
     return (

@@ -10,20 +10,21 @@ export default withIronSessionApiRoute(
             res.status(401).json({ err: err, body: req.body, query: req.query });     // goes to clients side .catch(err) methods 
         }
 
-        const createItem = () => {  // Create a new item
+        const createItem = (value) => {  // Create a new item
             // Items Object Structure
             const items = {
-                name: "Test1",
-                description: "This is a testing item.",
-                datetime: new Date(),
-                reminder: 0,
-                repeats: "",
-                folder: "1",    //pending changes after implemented folder
+                userID: parseInt(value.userID),
+                name: value.name.toString(),
+                description: value.description.toString(),
+                datetime: value.datetime,
+                reminder: parseInt(value.reminder),
+                repeats: value.repeat.toString(),
+                folder: parseInt(value.folder),
                 finished: false,
             }
 
-            var statements = "INSERT INTO items (name, description, datetime, reminder, repeats, folder, finished) VALUES (?,?,?,?,?,?,?);";
-            var insert = [items.name, items.description, items.datetime, items.reminder, items.repeats, items.folder, items.finished];
+            var statements = "INSERT INTO items (userID, name, description, datetime, reminder, repeats, folder, finished) VALUES (?,?,?,?,?,?,?,?);";
+            var insert = [items.userID, items.name, items.description, items.datetime, items.reminder, items.repeats, items.folder, items.finished];
             statements = mysql.format(statements, insert);
 
             var con = mysql.createConnection(config);
@@ -57,10 +58,12 @@ export default withIronSessionApiRoute(
             });
         }
 
-
-
         if (req.method === 'POST') {
-            createItem();
+            if (!req.body.userID) { errorHandler("Not logged in.") } else {
+                if (req.body.userID.toString() !== req.session.userID.toString()) { errorHandler("User not match") } else {
+                    createItem(req.body);
+                }
+            }
         } else if (req.method === 'GET') {
             if (!req.query.userID) { errorHandler("Not logged in.") } else {
                 if (req.query.userID.toString() !== req.session.userID.toString()) { errorHandler("User not match") } else {
