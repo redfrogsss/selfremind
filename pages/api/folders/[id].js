@@ -32,7 +32,7 @@ export default withIronSessionApiRoute(
 
         const modifyFolder = (value) => {  // modify items with id
             const folder = {
-                id: value.id
+                id: value.id,
                 name: value.name,
             }
 
@@ -56,7 +56,7 @@ export default withIronSessionApiRoute(
             });
         }
 
-        const deleteItem = (id) => {  // delete items with id
+        const deleteFolder = (id) => {  // delete items with id
             var statements = "DELETE FROM folders WHERE id=?;";
             var insert = [id];
             statements = mysql.format(statements, insert);
@@ -78,11 +78,11 @@ export default withIronSessionApiRoute(
         if (req.method === 'POST') {
             errorHandler("POST is not allowed.");
         } else if (req.method === 'GET') {
-            getItem(id);
+            getFolder(id);
         } else if (req.method === 'PUT') {
-            modifyItem(id);
+            modifyFolder(id);
         } else if (req.method === 'DELETE') {
-            deleteItem(id);
+            deleteFolder(id);
         }
     },
     {

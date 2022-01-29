@@ -18,14 +18,19 @@ const Folder = () => {
     const [folderData, setFolderData] = useState(undefined);
 
     useEffect(() => {
-        axios.get("/api/folders/" + folderID + "?userID=" + cookies.userID)
-            .then((res)=>{
-                setFolderData(res.data);
-                console.log("folder", folderData);
-            }).catch((err) => {
-                console.error(err);
-            });
-    }, []);
+        if (folderID !== undefined) {
+            axios.get("/api/folders/" + folderID + "?userID=" + cookies.userID)
+                .then((res) => {
+                    setFolderData(res.data.result[0]);
+                }).catch((err) => {
+                    console.error(err);
+                });
+        }
+    }, [folderID]);
+
+    const printFolderName = () => {
+        return folderData ? folderData.name : "";
+    }
 
     return (
         <>
@@ -42,7 +47,7 @@ const Folder = () => {
                         <Flex>
                             <Text>
                                 <Text as="b" fontSize="xl">
-                                    Folder: {folderID}
+                                    Folder: {printFolderName()}
                                     <RemoveFolderButton />
                                 </Text>
                             </Text>
