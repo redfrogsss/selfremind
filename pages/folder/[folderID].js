@@ -5,7 +5,7 @@ import FoldersPanel from "../../components/FoldersPanel";
 import AddItemButton from "../../components/AddItemButton";
 import TodoListTable from "../../components/TodoListTable";
 import RemoveFolderButton from "../../components/RemoveFolderButton";
-import AuthRedirect from '../components/AuthRedirect';
+import AuthRedirect from '../../components/AuthRedirect';
 
 const Folder = () => {
     const router = useRouter();

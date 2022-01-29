@@ -12,9 +12,7 @@ export default function AuthRedirect() {
             router.push("/login");
         } else {
             axios.post("/api/authStatus", { userID: cookies.userID }).then((res) => {
-                if (res.data.authStatus) {
-                    router.push("/home");
-                } else {
+                if (!res.data.authStatus) {
                     router.push("/login");
                 }
             });

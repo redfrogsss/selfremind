@@ -19,7 +19,9 @@ import {
 import { Input } from '@chakra-ui/react'
 import { useToast } from '@chakra-ui/react'
 import { useRouter } from 'next/router'
-
+import { useEffect, useState } from "react";
+import axios from 'axios'
+import { useCookies } from 'react-cookie';
 
 const ActiveButton = (props) => {
     return (
@@ -84,6 +86,24 @@ const AddFolderButton = (props) => {
 export default function FoldersPanel() {
 
     const router = useRouter();
+    const [cookies, setCookie, removeCookie] = useCookies(['userID']);
+    const [data, setData] = useState([]);
+
+    useEffect(() => {
+        // get all folders 
+        axios.get("/api/folders?userID=" + cookies.userID)
+            .then((res) => {
+                setData(res.data.result);
+            });
+    }, [])
+
+    const printFolderButtons = (data) => {
+        return data.map((value) => {
+            return (
+                <InactiveButton onClick={() => { router.push("/folder/" + value.id) }}>{value.name}</InactiveButton>
+            )
+        });
+    }
 
     return (
         <Stack w="100%" p={10}>
@@ -92,10 +112,11 @@ export default function FoldersPanel() {
             <InactiveButton>All Todos</InactiveButton>
             <Divider w="100%" h={1} py={1} />
             {/* temp route */}
-            <InactiveButton onClick={()=>{router.push("/folder/Folder1")}}>Folder 1</InactiveButton>
-            <InactiveButton onClick={()=>{router.push("/folder/Folder2")}}>Folder 2</InactiveButton>
-            <InactiveButton onClick={()=>{router.push("/folder/Folder3")}}>Folder 3</InactiveButton>
-            <InactiveButton onClick={()=>{router.push("/folder/Folder4")}}>Folder 4</InactiveButton>
+            {/* <InactiveButton onClick={() => { router.push("/folder/Folder1") }}>Folder 1</InactiveButton>
+            <InactiveButton onClick={() => { router.push("/folder/Folder2") }}>Folder 2</InactiveButton>
+            <InactiveButton onClick={() => { router.push("/folder/Folder3") }}>Folder 3</InactiveButton>
+            <InactiveButton onClick={() => { router.push("/folder/Folder4") }}>Folder 4</InactiveButton> */}
+            {printFolderButtons(data)}
             <AddFolderButton />
         </Stack>
     );
