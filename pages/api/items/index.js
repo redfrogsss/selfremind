@@ -42,7 +42,7 @@ export default withIronSessionApiRoute(
         }
 
         const getAllItems = (id) => {
-            var statements = "SELECT * FROM items WHERE userID=?;";
+            var statements = "SELECT * FROM items WHERE userID=? ORDER BY datetime ASC;";
             var insert = [id];
             statements = mysql.format(statements, insert);
 
