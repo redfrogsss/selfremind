@@ -35,7 +35,6 @@ const InactiveButton = (props) => {
 
 const AddFolderButton = (props) => {
 
-
     const { isOpen, onOpen, onClose } = useDisclosure()
 
     const toast = useToast();
