@@ -64,37 +64,37 @@ export default function handler(req, res) {
         }
     
         var statements = "";
-        if (items.name) {
+        if (items.name !== undefined) {
             statements += "UPDATE items SET name=? WHERE id=?;";
             var insert = [items.name, id];
             statements = mysql.format(statements, insert);
         }
-        if (items.description) {
+        if (items.description !== undefined) {
             statements += "UPDATE items SET description=? WHERE id=?;";
             var insert = [items.description, id];
             statements = mysql.format(statements, insert);
         }
-        if (items.datetime) {
+        if (items.datetime !== undefined) {
             statements += "UPDATE items SET datetime=? WHERE id=?;";
             var insert = [items.datetime, id];
             statements = mysql.format(statements, insert);
         }
-        if (items.reminder) {
+        if (items.reminder !== undefined) {
             statements += "UPDATE items SET reminder=? WHERE id=?;";
             var insert = [items.reminder, id];
             statements = mysql.format(statements, insert);
         }
-        if (items.repeats) {
+        if (items.repeats !== undefined) {
             statements += "UPDATE items SET repeats=? WHERE id=?;";
             var insert = [items.repeats, id];
             statements = mysql.format(statements, insert);
         }
-        if (items.folder) {
+        if (items.folder !== undefined) {
             statements += "UPDATE items SET folder=? WHERE id=?;";
             var insert = [items.folder, id];
             statements = mysql.format(statements, insert);
         }
-        if (items.finished) {
+        if (items.finished !== undefined) {
             statements += "UPDATE items SET finished=? WHERE id=?;";
             var insert = [items.finished, id];
             statements = mysql.format(statements, insert);
@@ -104,11 +104,11 @@ export default function handler(req, res) {
     
         con.connect(function (err) {
             if (err) {
-                res.status(200).json({ err: err });
+                res.status(200).json({ err: err, statements: statements });
             };
             con.query(statements, function (err, result) {
-                if (err) { res.status(200).json({ err: err }); };
-                res.status(200).json({ result: result, req: req.query })
+                if (err) { res.status(200).json({ err: err , req: req.body, statements: statements}); };
+                res.status(200).json({ result: result, req: req.body , statements: statements})
             });
         });
     }

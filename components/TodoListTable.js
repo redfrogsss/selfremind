@@ -13,7 +13,9 @@ import {
 } from '@chakra-ui/react'
 import { Checkbox } from '@chakra-ui/react'
 import { Badge } from '@chakra-ui/react'
+import axios from 'axios'
 import moment from 'moment'
+import { useEffect, useState } from 'react'
 
 const DateBadge = (props) => {
     return (
@@ -43,20 +45,37 @@ export default function TodoListTable(props) {
 
     const printItems = (data = []) => {
 
-        const getDate = (date) => {
-            var targetDate = moment(date).format('DD MMM');
-            var today = moment().format('DD MMM');
-            if (targetDate.toString() === today.toString()){
-                return "TODAY";
-            } else {
-                return targetDate;
-            }
-        }
-
         return data.map((value) => {
+
+            const [checked, setChecked] = useState(value.finished); // show checked state
+
+            const checkHandler = (id, value) => {
+                axios.put("/api/items/" + id, { finished: value })
+                    .then((res) => {
+                        setChecked(!checked);
+                    });
+            }
+
+            const getDate = (date) => {
+                var targetDate = moment(date).format('DD MMM');
+                var today = moment().format('DD MMM');
+                if (targetDate.toString() === today.toString()) {
+                    return "TODAY";
+                } else {
+                    return targetDate;
+                }
+            }
+
             return (
                 <Tr>
-                    <Td><Checkbox>{value.name}</Checkbox></Td>
+                    <Td>
+                        <Checkbox
+                            onChange={(e) => { checkHandler(value.id, e.target.checked); }}
+                            isChecked={checked}
+                        >
+                            {value.name}
+                        </Checkbox>
+                    </Td>
                     <Td isNumeric>
                         <DateBadge>{getDate(value.datetime)}</DateBadge>
                         {moment(value.datetime).format('h:mm A')}
