@@ -55,7 +55,7 @@ const Folder = () => {
                             <Spacer />
                             <AddItemButton />
                         </Flex>
-                        <FolderTable />
+                        <FolderTable folderID={folderID} />
                     </Stack>
                 </GridItem>
             </Grid>
