@@ -108,7 +108,7 @@ export default function FoldersPanel() {
     return (
         <Stack w="100%" p={10}>
             <ActiveButton>Today</ActiveButton>
-            <InactiveButton>Done</InactiveButton>
+            <InactiveButton onClick={()=>{ router.push("/done") }}>Done</InactiveButton>
             <InactiveButton>All Todos</InactiveButton>
             <Divider w="100%" h={1} py={1} />
             {/* temp route */}
