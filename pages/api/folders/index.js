@@ -39,7 +39,7 @@ export default withIronSessionApiRoute(
             if(userID === undefined) {
                 errorHandler("No userID passed");
             } else {
-                var statements = "SELECT * FROM folders WHERE userID=? ORDER BY name ASC;";
+                var statements = "SELECT * FROM folders WHERE userID=? ORDER BY id ASC;";
                 var insert = [userID];
                 statements = mysql.format(statements, insert);
     
