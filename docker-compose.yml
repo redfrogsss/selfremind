@@ -18,5 +18,6 @@ services:
       MYSQL_PASSWORD: selfremind123
     volumes:
       - dbdata:/var/lib/mysql
+      - ./my.conf:/etc/mysql/my.cnf
 volumes:
   dbdata:
