@@ -1,6 +1,7 @@
 import config from '../../../config/mysql';
 var mysql = require('mysql');
 import { withIronSessionApiRoute } from "iron-session/next";
+import moment from 'moment'
 
 export default withIronSessionApiRoute(
     function handler(req, res) {
@@ -16,7 +17,7 @@ export default withIronSessionApiRoute(
                 userID: parseInt(value.userID),
                 name: value.name.toString(),
                 description: value.description.toString(),
-                datetime: value.datetime,
+                datetime: moment(value.datetime).utc().format('YYYY-MM-DD HH:mm:ss'),
                 reminder: parseInt(value.reminder),
                 repeats: value.repeat.toString(),
                 folder: parseInt(value.folder),

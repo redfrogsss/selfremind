@@ -64,7 +64,7 @@ export default function AddItemButton() {
     }
 
     const datetimeHandler = (value) => {
-        setDatetime(moment(value).format('YYYY-MM-DD HH:mm:ss'));
+        setDatetime(moment(value));
     }
 
     return (
