@@ -7,6 +7,7 @@ import LogoutButton from './LogoutButton';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useCookies } from 'react-cookie';
+import { useToast } from '@chakra-ui/react'
 
 const SearchBar = () => {
     return (
