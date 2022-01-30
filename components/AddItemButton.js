@@ -53,6 +53,14 @@ export default function AddItemButton() {
             isClosable: true,
         });
 
+    const FailToast = () =>
+        toast({
+            description: 'Item created failed.',
+            status: 'error',
+            duration: 9000,
+            isClosable: true,
+        });
+
     const submitHandler = (e) => {
         e.preventDefault();
 
@@ -72,6 +80,7 @@ export default function AddItemButton() {
             SuccessToast();
             router.push("/folder/" + data.folder);
         }).catch((err) => {
+            FailToast();
             console.error(err);
         });
     }
