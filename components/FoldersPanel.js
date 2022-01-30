@@ -60,7 +60,7 @@ const AddFolderButton = (props) => {
         }
 
         axios.post("/api/folders", data)
-            .then((res)=>{
+            .then((res) => {
                 console.log(res.data);
                 router.reload();
             })
@@ -108,6 +108,24 @@ const AddFolderButton = (props) => {
     );
 }
 
+const PanelButtons = (props) => {
+    const router = useRouter();
+
+    const expectedURL = props.expectedURL ? props.expectedURL : undefined;
+    const onClick = props.onClick ? props.onClick : undefined;
+
+    if (expectedURL === undefined) {
+        return <InactiveButton onClick={onClick}>{props.children}</InactiveButton>
+    } else {
+        if (router.asPath === expectedURL) {
+            return <ActiveButton onClick={onClick}>{props.children}</ActiveButton>
+        } else {
+            return <InactiveButton onClick={onClick}>{props.children}</InactiveButton>
+        }
+    }
+}
+
+
 export default function FoldersPanel() {
 
     const router = useRouter();
@@ -125,16 +143,21 @@ export default function FoldersPanel() {
     const printFolderButtons = (data) => {
         return data.map((value) => {
             return (
-                <InactiveButton onClick={() => { router.push("/folder/" + value.id) }}>{value.name}</InactiveButton>
+                // <InactiveButton onClick={() => { router.push("/folder/" + value.id) }}>{value.name}</InactiveButton>
+                <PanelButtons
+                    expectedURL={"/folder/" + value.id}
+                    onClick={() => { router.push("/folder/" + value.id) }}
+                >{value.name}</PanelButtons>
             )
         });
     }
 
+
     return (
         <Stack w="100%" p={10}>
-            <ActiveButton onClick={() => { router.push("/home") }}>Today</ActiveButton>
-            <InactiveButton onClick={() => { router.push("/done") }}>Done</InactiveButton>
-            <InactiveButton onClick={() => { router.push("/all") }}>All Todos</InactiveButton>
+            <PanelButtons expectedURL="/home" onClick={() => { router.push("/home") }}>Today</PanelButtons>
+            <PanelButtons expectedURL="/done" onClick={() => { router.push("/done") }}>Done</PanelButtons>
+            <PanelButtons expectedURL="/all" onClick={() => { router.push("/all") }}>All Todos</PanelButtons>
             <Divider w="100%" h={1} py={1} />
             {printFolderButtons(data)}
             <AddFolderButton />
