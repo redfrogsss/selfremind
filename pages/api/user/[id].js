@@ -9,7 +9,7 @@ export default function handler(req, res) {
         res.status(401).json({ err: err });     // goes to clients side .catch(err) methods 
     }
 
-    const getItem = (id) => { // get info with item id
+    const getUser = (id) => { // get info with user id
         var statements = "SELECT * FROM auth WHERE id=?;";
         var insert = [id];
         statements = mysql.format(statements, insert);
@@ -27,7 +27,7 @@ export default function handler(req, res) {
         });
     }
 
-    const modifyItem = (id) => {  // modify items with id
+    const modifyUser = (id) => {  // modify user with id
         const items = {
             username: req.body.username,
             pwd: req.body.pwd,
@@ -62,32 +62,33 @@ export default function handler(req, res) {
 
     }
 
-    const deleteItem = (id) => {  // delete items with id
-        var statements = "DELETE FROM items WHERE id=?;";
-        var insert = [id];
-        statements = mysql.format(statements, insert);
+    // const deleteUser = (id) => {  // delete user with id
+    //     var statements = "DELETE FROM items WHERE id=?;";
+    //     var insert = [id];
+    //     statements = mysql.format(statements, insert);
 
-        var con = mysql.createConnection(config);
+    //     var con = mysql.createConnection(config);
 
-        con.connect(function (err) {
-            if (err) {
-                res.status(200).json({ err: err });
-            };
-            con.query(statements, function (err, result) {
-                if (err) { res.status(200).json({ err: err }); };
-                res.status(200).json({ result: result, req: req.query })
-            });
-        });
+    //     con.connect(function (err) {
+    //         if (err) {
+    //             res.status(200).json({ err: err });
+    //         };
+    //         con.query(statements, function (err, result) {
+    //             if (err) { res.status(200).json({ err: err }); };
+    //             res.status(200).json({ result: result, req: req.query })
+    //         });
+    //     });
 
-    }
+    // }
 
     if (req.method === 'POST') {
         errorHandler("Method not available");
     } else if (req.method === 'GET') {
-        getItem(id);
+        getUser(id);
     } else if (req.method === 'PUT') {
-        modifyItem(id);
+        modifyUser(id);
     } else if (req.method === 'DELETE') {
-        deleteItem(id);
+        // deleteUser(id);
+        errorHandler("Method not available");
     }
 }
