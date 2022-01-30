@@ -80,6 +80,18 @@ export default function SettingModal(props) {
             FailToast("Could not fetch username");
         });
     }
+    
+    const changeUsername = (data) => {
+        axios.put("/api/user/" + cookies.userID, {username: data.username})
+        .then((res)=> {
+            SuccessToast();
+            onClose();
+        })
+        .catch((err)=>{
+            console.log(err);
+            FailToast("Could not change username.");
+        });
+    }
 
     const submitHandler = (e) => {
         e.preventDefault();
@@ -92,6 +104,7 @@ export default function SettingModal(props) {
         if (e.target.newusername.value.length > 0) {
             data.username = e.target.newusername.value;
             console.log("username set!");
+            changeUsername(data);
         }
         if (e.target.oldpassword.value.length > 0 && (e.target.newpassword.value.length > 0 && (e.target.newpassword.value === e.target.repeatnewpassword.value))) {
             data.pwd_old = e.target.oldpassword.value;
