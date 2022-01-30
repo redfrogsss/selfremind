@@ -25,10 +25,21 @@ export default function MenuBar() {
     const [username, setUsername] = useState("");
     const [cookies, setCookie, removeCookie] = useCookies(['userID']);
 
+    const FailToast = () =>
+        toast({
+            description: 'Cannot fetch username',
+            status: 'error',
+            duration: 9000,
+            isClosable: true,
+        });
+
     useEffect(()=>{
         const url = "/api/user/" + cookies.userID;
         axios.get(url).then((res) => {
             setUsername(res.data.result[0].username);
+        }).catch((err)=>{
+            console.error(err);
+            FailToast();
         });
     }, []);
 
