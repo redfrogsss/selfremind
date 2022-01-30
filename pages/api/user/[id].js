@@ -38,12 +38,12 @@ export default function handler(req, res) {
             var statements = "";
             if (items.username) {
                 statements += "UPDATE auth SET username=? WHERE id=?;";
-                var insert = [items.name, id];
+                var insert = [items.username, id];
                 statements = mysql.format(statements, insert);
             }
             if (items.pwd) {
-                statements += "UPDATE items SET pwd=? WHERE id=?;";
-                var insert = [items.description, id];
+                statements += "UPDATE auth SET pwd=? WHERE id=?;";
+                var insert = [items.pwd, id];
                 statements = mysql.format(statements, insert);
             }
 
@@ -51,10 +51,10 @@ export default function handler(req, res) {
 
             con.connect(function (err) {
                 if (err) {
-                    res.status(200).json({ err: err });
+                    res.status(401).json({ err: err });
                 };
                 con.query(statements, function (err, result) {
-                    if (err) { res.status(200).json({ err: err }); };
+                    if (err) { res.status(401).json({ err: err }); };
                     res.status(200).json({ result: result, req: req.query })
                 });
             });
