@@ -136,11 +136,6 @@ export default function FoldersPanel() {
             <InactiveButton onClick={() => { router.push("/done") }}>Done</InactiveButton>
             <InactiveButton onClick={() => { router.push("/all") }}>All Todos</InactiveButton>
             <Divider w="100%" h={1} py={1} />
-            {/* temp route */}
-            {/* <InactiveButton onClick={() => { router.push("/folder/Folder1") }}>Folder 1</InactiveButton>
-            <InactiveButton onClick={() => { router.push("/folder/Folder2") }}>Folder 2</InactiveButton>
-            <InactiveButton onClick={() => { router.push("/folder/Folder3") }}>Folder 3</InactiveButton>
-            <InactiveButton onClick={() => { router.push("/folder/Folder4") }}>Folder 4</InactiveButton> */}
             {printFolderButtons(data)}
             <AddFolderButton />
         </Stack>
