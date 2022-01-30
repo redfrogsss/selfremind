@@ -11,7 +11,7 @@ export default function TodayTable () {
 
     const filteredData = (data) => {
         return data.filter(((value)=>{  // return true or false
-            return moment().isSame(moment(value.datetime), "date");
+            return moment().isSame(moment(value.datetime), "date") & !value.finished;
         }));
     }
     
