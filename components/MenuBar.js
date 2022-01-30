@@ -8,16 +8,29 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useCookies } from 'react-cookie';
 import { useToast } from '@chakra-ui/react'
+import {
+    FormControl,
+    FormLabel,
+    FormErrorMessage,
+    FormHelperText,
+} from '@chakra-ui/react'
+import { useRouter } from 'next/router'
 
 const SearchBar = () => {
+    const router = useRouter();
+
     return (
-        <InputGroup>
-            <InputLeftElement
-                pointerEvents='none'
-                children={<SearchIcon color="gray.300" />}
-            />
-            <Input type="text" placeholder="Search" />
-        </InputGroup>
+        <FormControl>
+            <form onSubmit={(e) => { e.preventDefault(); router.push("/search/" + e.target.keywords.value);}}>
+                <InputGroup>
+                    <InputLeftElement
+                        pointerEvents='none'
+                        children={<SearchIcon color="gray.300" />}
+                    />
+                    <Input id="keywords" type="text" placeholder="Search" onSubmit={() => { console.log("Entered!"); }} />
+                </InputGroup>
+            </form>
+        </FormControl>
     );
 }
 
@@ -35,11 +48,11 @@ export default function MenuBar() {
             isClosable: true,
         });
 
-    useEffect(()=>{
+    useEffect(() => {
         const url = "/api/user/" + cookies.userID;
         axios.get(url).then((res) => {
             setUsername(res.data.result[0].username);
-        }).catch((err)=>{
+        }).catch((err) => {
             console.error(err);
             FailToast();
         });
@@ -65,7 +78,7 @@ export default function MenuBar() {
                 <Center p={4}>
                     <HStack>
                         <SettingModal />
-                        <LogoutButton /> 
+                        <LogoutButton />
                         <Text px={4}>
                             {username}
                         </Text>

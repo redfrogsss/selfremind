@@ -4,12 +4,12 @@ import MenuBar from "../../components/MenuBar";
 import FoldersPanel from "../../components/FoldersPanel";
 import AddItemButton from "../../components/AddItemButton";
 import TodoListTable from "../../components/TodoListTable";
-import AuthRedirect from '../components/AuthRedirect';
+import AuthRedirect from '../../components/AuthRedirect';
+import SearchTable from '../../components/SearchTable';
 
-const Search = () => {
+const Search = (props) => {
     const router = useRouter();
     const { keywords } = router.query;  //url variable
-
 
     return (
         <>
@@ -32,7 +32,7 @@ const Search = () => {
                             <Spacer />
                             <AddItemButton />
                         </Flex>
-                        <TodoListTable />
+                        <SearchTable keywords={keywords} />
                     </Stack>
                 </GridItem>
             </Grid>
