@@ -26,7 +26,7 @@ export default function DoneTable () {
 
     return (
         <>
-            <TodoListTable data={data} />
+            <TodoListTable data={data} disableOverdue={true}/>
         </>
     );
 }

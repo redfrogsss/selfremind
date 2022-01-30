@@ -43,6 +43,8 @@ const RepeatBadge = (props) => {
 
 export default function TodoListTable(props) {
 
+    const disableOverdue = props.disableOverdue ? props.disableOverdue : false;
+
     const printItems = (data = []) => {
 
         return data.map((value) => {
@@ -61,7 +63,7 @@ export default function TodoListTable(props) {
                 var targetDate = moment(date).format('DD MMM');
                 var today = moment().format('DD MMM');
                 // console.log("targetDate is in the past?", moment().diff(date, 'days') > 0);    // targetdate is in the past?
-                if (moment().diff(date, 'minutes') > 0) {   // targetdate is in the past?
+                if (moment().diff(date, 'minutes') > 0 && !disableOverdue) {   // targetdate is in the past?
                     return <OverDueDateBadge>{targetDate}</OverDueDateBadge>
                 } else if (targetDate.toString() === today.toString()) {
                     return <DateBadge>TODAY</DateBadge>;
@@ -79,8 +81,10 @@ export default function TodoListTable(props) {
             }
 
             const getOverDueBadge = (date) => {
-                if (moment().diff(date, 'minutes') > 0){
-                    return <OverDueBadge />
+                if(!disableOverdue) {
+                    if (moment().diff(date, 'minutes') > 0){
+                        return <OverDueBadge />
+                    }
                 }
             }
 

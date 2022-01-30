@@ -20,7 +20,7 @@ export default function AllTable () {
 
     return (
         <>
-            <TodoListTable data={data} />
+            <TodoListTable data={data} disableOverdue={true}/>
         </>
     );
 }
