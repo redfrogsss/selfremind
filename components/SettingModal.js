@@ -112,6 +112,13 @@ export default function SettingModal(props) {
             console.log("username set!");
             await changeUsername(data);
         }
+
+        if(!(e.target.oldpassword.value.length > 0 && (e.target.newpassword.value.length > 0 || e.target.repeatnewpassword.value.length > 0 ))){
+            FailToast("Old password is empty!");
+        }
+        if(!(e.target.newpassword.value.length > 0 && (e.target.newpassword.value === e.target.repeatnewpassword.value))){
+            FailToast("New password not matched!");
+        }
     }
 
     return (
