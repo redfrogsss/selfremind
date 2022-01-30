@@ -9,6 +9,7 @@ import AuthRedirect from '../components/AuthRedirect';
 import { useEffect, useState } from 'react';
 import { useCookies } from 'react-cookie';
 import FolderTable from '../components/FolderTable';
+import AllTable from '../components/AllTable';
 
 const All = () => {
     const router = useRouter();
@@ -35,7 +36,7 @@ const All = () => {
                             <Spacer />
                             <AddItemButton />
                         </Flex>
-                        <TodoListTable />
+                        <AllTable />
                     </Stack>
                 </GridItem>
             </Grid>
