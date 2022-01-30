@@ -10,7 +10,7 @@ export default function handler(req, res) {
     }
 
     const getUser = (id) => { // get info with user id
-        var statements = "SELECT * FROM auth WHERE id=?;";
+        var statements = "SELECT id, username FROM auth WHERE id=?;";
         var insert = [id];
         statements = mysql.format(statements, insert);
 
