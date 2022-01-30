@@ -62,7 +62,11 @@ const AddFolderButton = (props) => {
         axios.post("/api/folders", data)
             .then((res) => {
                 console.log(res.data);
-                router.reload();
+                if(router.asPath === "/home") {
+                    router.push("/all");
+                } else {
+                    router.push("/home");
+                }
             })
             .catch((err) => {
                 console.log(err);
