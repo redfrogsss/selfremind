@@ -96,7 +96,7 @@ const AddFolderButton = (props) => {
                         </ModalBody>
 
                         <ModalFooter>
-                            <Button colorScheme='teal' mr={3} type="submit" >Add Item</Button>
+                            <Button colorScheme='teal' mr={3} type="submit" >Add Folder</Button>
                             <Button colorScheme='teal' variant='ghost' onClick={onClose}>
                                 Cancel
                             </Button>
