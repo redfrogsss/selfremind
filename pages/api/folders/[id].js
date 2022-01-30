@@ -65,10 +65,10 @@ export default withIronSessionApiRoute(
 
             con.connect(function (err) {
                 if (err) {
-                    res.status(200).json({ err: err });
+                    res.status(401).json({ err: err });
                 };
                 con.query(statements, function (err, result) {
-                    if (err) { res.status(200).json({ err: err }); };
+                    if (err) { res.status(401).json({ err: err, statements: statements }); };
                     res.status(200).json({ result: result, req: req.query })
                 });
             });

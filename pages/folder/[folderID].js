@@ -49,7 +49,7 @@ const Folder = () => {
                             <Text>
                                 <Text as="b" fontSize="xl">
                                     Folder: {printFolderName()}
-                                    <RemoveFolderButton />
+                                    <RemoveFolderButton folderID={folderID}/>
                                 </Text>
                             </Text>
                             <Spacer />
