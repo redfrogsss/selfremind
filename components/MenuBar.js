@@ -24,6 +24,7 @@ export default function MenuBar() {
 
     const [username, setUsername] = useState("");
     const [cookies, setCookie, removeCookie] = useCookies(['userID']);
+    const toast = useToast();
 
     const FailToast = () =>
         toast({
