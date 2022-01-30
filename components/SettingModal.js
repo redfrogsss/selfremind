@@ -48,8 +48,8 @@ export default function SettingModal(props) {
             isClosable: true,
         });
 
-    const changePassword = (data) => {
-        axios.get("/api/user/" + cookies.userID).then((res) => {    //get username
+    const changePassword = async (data) => {
+        await axios.get("/api/user/" + cookies.userID).then((res) => {    //get username
             const username = res.data.result[0].username;
             axios.post("/api/login", { username: username, pwd: data.pwd_old })  //valid old password
                 .then((res) => {
@@ -72,7 +72,7 @@ export default function SettingModal(props) {
                     }
                 })
                 .catch((err) => {
-                    console.log(err);
+                    console.error(err);
                     FailToast("Old password invalid.");
                 });
         }).catch((err) => {
@@ -81,11 +81,11 @@ export default function SettingModal(props) {
         });
     }
     
-    const changeUsername = (data) => {
-        axios.put("/api/user/" + cookies.userID, {username: data.username})
+    const changeUsername = async (data) => {
+        await axios.put("/api/user/" + cookies.userID, {username: data.username})
         .then((res)=> {
             SuccessToast();
-            onClose();
+            // onClose();
         })
         .catch((err)=>{
             console.log(err);
@@ -93,7 +93,7 @@ export default function SettingModal(props) {
         });
     }
 
-    const submitHandler = (e) => {
+    const submitHandler = async (e) => {
         e.preventDefault();
 
         var data = {
@@ -101,16 +101,16 @@ export default function SettingModal(props) {
             pwd_old: undefined,
             pwd: undefined,
         }
-        if (e.target.newusername.value.length > 0) {
-            data.username = e.target.newusername.value;
-            console.log("username set!");
-            changeUsername(data);
-        }
         if (e.target.oldpassword.value.length > 0 && (e.target.newpassword.value.length > 0 && (e.target.newpassword.value === e.target.repeatnewpassword.value))) {
             data.pwd_old = e.target.oldpassword.value;
             data.pwd = e.target.newpassword.value;
             console.log("pwd set!");
-            changePassword(data);
+            await changePassword(data);
+        }
+        if (e.target.newusername.value.length > 0) {
+            data.username = e.target.newusername.value;
+            console.log("username set!");
+            await changeUsername(data);
         }
     }
 
