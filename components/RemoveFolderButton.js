@@ -33,6 +33,14 @@ export default function RemoveFolderButton(props) {
             isClosable: true,
         });
 
+    const FailToast = () =>
+        toast({
+            description: 'Folder removed failed.',
+            status: 'error',
+            duration: 9000,
+            isClosable: true,
+        });
+
     const deleteHandler = () => {
 
         axios.delete("/api/folders/" + folderID + "?userID=" + cookies.userID)
@@ -44,6 +52,7 @@ export default function RemoveFolderButton(props) {
             })
             .catch((err) => {
                 console.error(err);
+                FailToast();
             }); 
 
     }
