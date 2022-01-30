@@ -61,6 +61,10 @@ export default withIronSessionApiRoute(
             var insert = [id];
             statements = mysql.format(statements, insert);
 
+            statements += "DELETE FROM items WHERE folder=?;"
+            var insert = [id];
+            statements = mysql.format(statements, insert);
+
             var con = mysql.createConnection(config);
 
             con.connect(function (err) {
