@@ -10,13 +10,8 @@ export default function FolderTable (props) {
 
     const folderID = props.folderID;
 
-    const filteredData = (data) => {
-        return data.filter(((value)=>{  // return true or false
-            return value.folder.toString() === folderID.toString();
-        }));
-    }
-    
     useEffect(()=>{
+        setData(undefined);
         const url = "/api/items?userID=" + cookies.userID;
         axios.get(url).then((res)=>{
             setData(filteredData(res.data.result));
@@ -25,6 +20,13 @@ export default function FolderTable (props) {
             console.error(err);
         });
     }, [folderID]);
+
+    const filteredData = (data) => {
+        return data.filter(((value)=>{  // return true or false
+            return value.folder.toString() === folderID.toString();
+        }));
+    }
+    
 
     return (
         <>
