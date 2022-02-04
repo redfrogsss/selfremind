@@ -1,34 +1,51 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+SelfRemind - a selfhosted To-do List Manager built with [Next.js](https://nextjs.org/), [Chakra-UI](https://chakra-ui.com/) and [MySQL](https://www.mysql.com/).
 
-## Getting Started
+## Getting Started with `docker-compose`
 
-First, run the development server:
+To start with, you must install [Docker](https://www.docker.com/products/docker-desktop) and [docker-compose](https://docs.docker.com/compose/) on your computer.
 
-```bash
-npm run dev
-# or
-yarn dev
+First, create a `docker-compose.yml` file with the following content:
+
+```yml
+version: "3"
+services:
+  web:
+    build: .
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+  db:
+    image: mysql/mysql-server:8.0
+    restart: unless-stopped
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      MYSQL_ROOT_PASSWORD: example
+      MYSQL_DATABASE: selfremind
+      MYSQL_USER: selfremind
+      MYSQL_PASSWORD: selfremind123
+    volumes:
+      - dbdata:/var/lib/mysql
+      - ./my.conf:/etc/mysql/my.cnf
+volumes:
+  dbdata:
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Then, run the command to start the server:
+```bash
+docker-compose up -d
+```
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+Wait a minutes and open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+By default, the username is `admin` and the password is `admin`.
 
 ## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+This is a side project built by [Jacky Fan](https://github.com/redfrogsss) - a university student in HK. 
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The following tech is used in this project.
+- [Next.js](https://nextjs.org/) - the frontend and backend framework of this project.
+- [Chakra-UI](https://chakra-ui.com/) - the UI solutions of this project.
+- [MySQL](https://www.mysql.com/) - the database of this project.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+You can check out [my dirty code in Github](https://github.com/redfrogsss/selfremind) - your feedback are welcome!
