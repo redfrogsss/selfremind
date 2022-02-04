@@ -12,7 +12,7 @@ const sqlToString = async (path = "") => {  //convert sql file into string
             input: fs.createReadStream(path),
             terminal: false
         });
-        
+
         rl.on('line', function (chunk) {
             statements += chunk.toString('ascii');
         });
@@ -26,16 +26,28 @@ const sqlToString = async (path = "") => {  //convert sql file into string
 export default function handler(req, res) {
     var con = mysql.createConnection(config);
 
-    sqlToString("./config/init.sql").then((statements)=> {
-        con.connect(function (err) {
-            if (err) {
-                res.status(200).json({ err: err });
-            };
-            con.query(statements, function (err, result) {
-                if (err) { res.status(200).json({ err: err }); };
+    con.connect(function (err) {
+        if (err) {
+            res.status(401).json({ err: err });
+        };
+        con.query("SHOW TABLES;", function (err, result) {
+            if (err) { res.status(401).json({ err: err }); };
+            if (result.length === 0) {
+                sqlToString("./config/init.sql").then((statements) => {
+                        if (err) {
+                            res.status(401).json({ err: err });
+                        };
+                        con.query(statements, function (err, result) {
+                            if (err) { res.status(401).json({ err: err }); };
+                            res.status(200).json({ result: result })
+                        });
+                });
+            } else {
                 res.status(200).json({ result: result })
-            });
+            }
         });
     });
+
+
 
 }

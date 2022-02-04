@@ -10,17 +10,21 @@ export default function Home() {
   const router = useRouter();
 
   useEffect(() => {
-    if (!cookies.userID) {
-      router.push("/login");
-    } else {
-      axios.post("/api/authStatus", { userID: cookies.userID }).then((res) => {
-        if (!res.data.authStatus) {
-          router.push("/login");
-        } else {
-          router.push("/home");
-        }
-      });
-    }
+    axios.get("/api/init").then((res) => {
+      if (!cookies.userID) {
+        router.push("/login");
+      } else {
+        axios.post("/api/authStatus", { userID: cookies.userID }).then((res) => {
+          if (!res.data.authStatus) {
+            router.push("/login");
+          } else {
+            router.push("/home");
+          }
+        });
+      }
+    }).catch((err) => {
+      console.error(err);
+    });
   }, []);
 
   return (
