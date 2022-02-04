@@ -1,5 +1,8 @@
 SelfRemind - a selfhosted To-do List Manager built with [Next.js](https://nextjs.org/), [Chakra-UI](https://chakra-ui.com/) and [MySQL](https://www.mysql.com/).
 
+![Alt text](./readme-img/login.png "Login Page")
+![Alt text](./readme-img/home.png "Home Page")
+
 ## Getting Started with `docker-compose`
 
 To start with, you must install [Docker](https://www.docker.com/products/docker-desktop) and [docker-compose](https://docs.docker.com/compose/) on your computer.
