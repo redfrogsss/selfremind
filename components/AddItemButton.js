@@ -146,7 +146,7 @@ export default function AddItemButton() {
                                         <option value='monthly'>Monthly</option>
                                     </Select>
                                 </FormControl>
-                                <FormControl>
+                                <FormControl isRequired>
                                     <FormLabel htmlFor='folder'>Folder</FormLabel>
                                     <Select id='folder'>
                                         {printFolderOptions()}
