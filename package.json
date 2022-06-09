@@ -17,7 +17,7 @@
     "@mui/icons-material": "^5.2.5",
     "@mui/material": "^5.2.5",
     "axios": "^0.25.0",
-    "framer-motion": "^5",
+    "framer-motion": "^6.3.11",
     "iron-session": "^6.0.5",
     "moment": "^2.29.1",
     "mysql": "^2.18.1",
