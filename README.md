@@ -1,5 +1,8 @@
-SelfRemind - a selfhosted To-do List Manager built with [Next.js](https://nextjs.org/), [Chakra-UI](https://chakra-ui.com/) and [MySQL](https://www.mysql.com/).
+[![CodeFactor](https://www.codefactor.io/repository/github/redfrogsss/selfremind/badge)](https://www.codefactor.io/repository/github/redfrogsss/selfremind)
+# SelfRemind
+a selfhosted To-do List Manager built with [Next.js](https://nextjs.org/), [Chakra-UI](https://chakra-ui.com/) and [MySQL](https://www.mysql.com/).
 
+## Screenshots
 ![Alt text](./readme-img/login.png "Login Page")
 ![Alt text](./readme-img/home.png "Home Page")
 
