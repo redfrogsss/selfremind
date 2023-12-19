@@ -19,7 +19,7 @@
     "axios": "^0.25.0",
     "framer-motion": "^5",
     "iron-session": "^6.0.5",
-    "moment": "^2.29.2",
+    "moment": "^2.29.4",
     "mysql": "^2.18.1",
     "next": "12.1.0",
     "react": "17.0.2",
