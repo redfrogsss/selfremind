@@ -16,7 +16,7 @@
     "@emotion/styled": "^11",
     "@mui/icons-material": "^5.2.5",
     "@mui/material": "^5.2.5",
-    "axios": "^0.25.0",
+    "axios": "^0.28.0",
     "framer-motion": "^5",
     "iron-session": "^6.0.5",
     "moment": "^2.29.4",
